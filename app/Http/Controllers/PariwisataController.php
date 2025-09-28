@@ -27,6 +27,11 @@ class PariwisataController extends Controller
                 'lokasi' => 'Sumatera Utara',
                 'deskripsi' => 'Danau vulkanik terbesar di dunia.',
             ],
+            [
+                'nama' => 'Gunung Everest',
+                'lokasi' => 'Nepal',
+                'deskripsi' => 'Gunung tertinggi di dunia.',
+            ],
         ];
 
         $homestay = [
