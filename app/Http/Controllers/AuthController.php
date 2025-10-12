@@ -47,7 +47,7 @@ class AuthController extends Controller
         });
 
         if ($found) {
-            return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $found['name']);
+            return redirect()->route('index')->with('success', 'Login berhasil! Selamat datang, ' . $found['name']);
         } else {
             return redirect()->back()->with('error', 'Email atau password salah!')->withInput();
         }
