@@ -29,8 +29,20 @@ Route::get('/package', function () {
     return view('guest.package');
 })->name('package');
 
+Route::get('/404', function () {
+    return view('guest.404');
+})->name('404');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/booking', function () {
+    return view('guest.booking');
+})->name('booking');
+
+Route::get('/your-booking', function () {
+    return view('guest.yourBooking');
+})->name('yourBooking');
 
 Route::get('/pariwisata', [PariwisataController::class, 'index']);
