@@ -88,6 +88,7 @@
                             <a href="destination.html" class="dropdown-item">Destination</a>
                             <a href="{{ route('booking') }}" class="dropdown-item">Booking</a>
                             <a href="{{ route('yourBooking') }}" class="dropdown-item">Your Booking</a>
+                            <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
                             <a href="team.html" class="dropdown-item">Travel Guides</a>
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             <a href="{{ route('404') }}" class="dropdown-item">404 Page</a>
@@ -241,7 +242,7 @@
         </div>
     </div>
     <!-- Testimonial End -->
-        
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

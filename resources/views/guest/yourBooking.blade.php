@@ -2,6 +2,21 @@
 <html lang="en">
 
 <head>
+    <style>
+        table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f3f8ff;
+            transition: 0.2s;
+        }
+        .badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.6em;
+        }
+    </style>
+
     <meta charset="utf-8">
     <title>Tourist - Travel Agency HTML Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -88,6 +103,7 @@
                             <a href="destination.html" class="dropdown-item">Destination</a>
                             <a href="{{ route('booking') }}" class="dropdown-item">Booking</a>
                             <a href="{{ route('yourBooking') }}" class="dropdown-item active">Your Booking</a>
+                            <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
                             <a href="team.html" class="dropdown-item">Travel Guides</a>
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             <a href="{{ route('404') }}" class="dropdown-item">404 Page</a>
@@ -103,7 +119,7 @@
             <div class="container py-5">
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white animated slideInDown">Booking</h1>
+                        <h1 class="display-3 text-white animated slideInDown">Your Booking</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-center">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -120,33 +136,100 @@
 
 
     <!-- Process Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Process</h6>
-                <h1 class="mb-5">Your Booking</h1>
-            </div>
-        </div>
-    </div>
     <!-- Process Start -->
 
 
     <!-- Booking Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
+            <a href="{{ route('booking') }}" class="btn btn-primary mb-3">Tambah Booking</a>
             <div class="booking p-5">
                 <div class="row g-5 align-items-center">
-                    <div class="col-md-6">
+
                         <form>
-                            
+                            <table class="table table-hover align-middle text-center shadow-sm">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Warga</th>
+                                        <th>Kamar</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Metode</th>
+                                        <th>Bukti</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($bookings as $index => $booking)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $booking->warga_id }}</td>
+                                        <td>{{ $booking->kamar_id }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($booking->checkin)->format('d M Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($booking->checkout)->format('d M Y') }}</td>
+                                        <td>Rp {{ number_format($booking->total, 0, ',', '.') }}</td>
+                                        <td>
+                                            @if($booking->status === 'pending')
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            @elseif($booking->status === 'confirmed')
+                                                <span class="badge bg-success">Confirmed</span>
+                                            @elseif($booking->status === 'cancelled')
+                                                <span class="badge bg-danger">Cancelled</span>
+                                            @else
+                                                <span class="badge bg-secondary">Unknown</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ ucfirst($booking->metode_bayar) }}</td>
+                                        <td>
+                                            @if($booking->bukti_pembayaran)
+                                                <a href="{{ asset('storage/'.$booking->bukti_pembayaran) }}"
+                                                target="_blank"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="fa fa-eye"></i> Lihat
+                                                </a>
+                                            @else
+                                                <span class="text-muted">Belum ada</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('bookingEdit', $booking) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fa fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('booking.destroy', $booking->booking_id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Hapus booking ini?')"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="10" class="text-muted py-4">
+                                            <i class="fa fa-info-circle me-2"></i>Belum ada data booking.
+                                        </td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </form>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- Booking Start -->
-        
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
