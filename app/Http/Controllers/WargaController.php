@@ -12,7 +12,7 @@ class WargaController extends Controller
     public function index()
     {
         $datas = Warga::all();
-        return view('guest.warga', compact('datas'));
+        return view('guest.warga.index', compact('datas'));
     }
 
     /**
@@ -20,7 +20,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('guest.tambahWarga');
+        return view('guest.warga.create');
     }
 
     /**
@@ -57,9 +57,10 @@ class WargaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(warga $data)
+    public function edit($id)
     {
-        return view('guest.editWarga', compact('data'));
+        $data = Warga::findOrFail($id);
+        return view('guest.warga.edit', compact('data'));
     }
 
     /**
@@ -83,13 +84,10 @@ class WargaController extends Controller
             ->with('success', 'Data Warga berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Warga $warga)
     {
-        $data = Warga::findOrFail($id);
-        $data->delete();
+        $warga->delete();
+
         return redirect()->route('warga.index')
             ->with('success', 'Data Warga berhasil dihapus!');
     }

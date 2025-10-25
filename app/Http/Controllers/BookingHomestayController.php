@@ -12,12 +12,12 @@ class BookingHomestayController extends Controller
     public function index()
     {
         $bookings = BookingHomestay::all();
-        return view('guest.yourBooking', compact('bookings'));
+        return view('guest.booking.index', compact('bookings'));
     }
 
     public function create()
     {
-        return view('guest.booking');
+        return view('guest.booking.create');
     }
 
     public function store(Request $request)
@@ -38,17 +38,19 @@ class BookingHomestayController extends Controller
         }
 
         BookingHomestay::create($validated);
-        return redirect()->route('yourBooking')->with('success', 'Booking berhasil ditambahkan!');
+        return redirect()->route('booking.index')->with('success', 'Booking berhasil ditambahkan!');
     }
 
     public function edit(BookingHomestay $booking)
     {
-        return view('guest.bookingEdit', compact('booking'));
+        return view('guest.booking.edit', compact('booking'));
     }
 
     public function update(Request $request, BookingHomestay $booking)
     {
         $validated = $request->validate([
+            'kamar_id'         => 'required|integer',
+            'warga_id'         => 'required|string',
             'checkin'          => 'required|date',
             'checkout'         => 'required|date|after_or_equal:checkin',
             'total'            => 'required|numeric',
@@ -62,7 +64,7 @@ class BookingHomestayController extends Controller
         }
 
         $booking->update($validated);
-        return redirect()->route('yourBooking')->with('success', 'Booking berhasil diperbarui!');
+        return redirect()->route('booking.index')->with('success', 'Booking berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -70,7 +72,7 @@ class BookingHomestayController extends Controller
         $booking = BookingHomestay::findOrFail($id);
         $booking->delete();
 
-        return redirect()->route('yourBooking')->with('success', 'Booking berhasil dihapus');
+        return redirect()->route('booking.index')->with('success', 'Booking berhasil dihapus');
     }
 
 }
