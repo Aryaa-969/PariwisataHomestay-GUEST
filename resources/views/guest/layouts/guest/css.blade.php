@@ -1,4 +1,3 @@
-
     <!-- Favicon -->
     <link href="{{ asset('Assets/img/favicon.ico') }}" rel="icon">
 

@@ -8,7 +8,7 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #ac83faff, #71aaffff);
+            background: linear-gradient(135deg, #A3A467, #d1d2abff);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -44,7 +44,7 @@
 <body>
 
 <div class="register-card">
-    <h3>📝 Register</h3>
+    <h3>REGISTER</h3>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tourist</title>
+    <title>Bina Desa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+    <!-- CSS -->
     @include('guest.layouts.guest.css')
+
 </head>
 
 <body>
@@ -25,24 +27,22 @@
     <!-- Topbar End -->
 
     <!-- Navbar & Hero Start -->
-
+    @include('guest.layouts.guest.navbar')
     <!-- Navbar & Hero End -->
 
     <!-- Booking Start -->
     @yield('content')
     <!-- Booking Start -->
 
-
     <!-- Footer Start -->
     @include('guest.layouts.guest.footer')
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
+    <!-- JavaScript Libraries -->
     @include('guest.layouts.guest.js')
-</body>
 
+</body>
 </html>

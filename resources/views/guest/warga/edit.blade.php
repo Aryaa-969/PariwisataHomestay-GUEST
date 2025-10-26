@@ -1,57 +1,6 @@
 @extends('guest.layouts.guest.app')
 
 @section('content')
-    <div class="container-fluid position-relative p-0">
-        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-            <a href="" class="navbar-brand p-0">
-                <h3 class="text-primary m-0">Pariwisata & Homestay</h3>
-                <!-- <img src="img/logo.png" alt="Logo"> -->
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="{{ route('index') }}" class="nav-item nav-link">Home</a>
-                    <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
-                    <a href="{{ route('service') }}" class="nav-item nav-link">Services</a>
-                    <a href="{{ route('package') }}" class="nav-item nav-link">Packages</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="destination.html" class="dropdown-item">Destination</a>
-                            <a href="{{ route('booking.create') }}" class="dropdown-item">Booking</a>
-                            <a href="{{ route('booking.index') }}" class="dropdown-item">Your Booking</a>
-                            <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
-                            <a href="team.html" class="dropdown-item">Travel Guides</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="{{ route('404') }}" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
-                    <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
-                </div>
-                {{-- Tombol kanan --}}
-                @if (session('user'))
-                    <div class="dropdown ms-3">
-                        <a href="#" class="btn btn-outline-primary rounded-pill dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-user me-1"></i> {{ session('user')->name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('booking.index') }}"><i class="fa fa-calendar-check me-2"></i> My Bookings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button class="dropdown-item text-danger"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                @else
-                    <a href="{{ route('users.create') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3">Register</a>
-                @endif
-            </div>
-        </nav>
 
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
             <div class="container py-5">
@@ -69,88 +18,88 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="booking p-5 futuristic-card shadow-lg rounded-4"
-                        style="background: #FFF;
-                        backdrop-filter: blur(10px);
-                        border: 1px solid rgba(104, 104, 104, 0.08);
-                        border-radius: 20px;">
+        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="booking p-5 futuristic-card shadow-lg rounded-4"
+                            style="background: #FFF;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(104, 104, 104, 0.08);
+                            border-radius: 20px;">
 
-                        <h2 class="fw-bold text-gradient mb-4">Edit Warga</h2>
-                        @include('guest.layouts.guest.alerts')
+                            <h2 class="fw-bold text-gradient mb-4">Edit Warga</h2>
+                            @include('guest.layouts.guest.alerts')
 
-                        <form action="{{ route('warga.update', $data->warga_id) }}" method="POST" class="futuristic-form">
-                            @csrf
-                            @method('PUT')
-                            <div class="row g-3">
+                            <form action="{{ route('warga.update', $data->warga_id) }}" method="POST" class="futuristic-form">
+                                @csrf
+                                @method('PUT')
+                                <div class="row g-3">
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control input-glass" name="no_ktp" placeholder="NIK" value="{{ old('no_ktp', $data->no_ktp) }}">
-                                        <label>NIK</label>
-                                        @error('no_ktp')
-                                            <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control input-glass" name="no_ktp" placeholder="NIK" value="{{ old('no_ktp', $data->no_ktp) }}">
+                                            <label>NIK</label>
+                                            @error('no_ktp')
+                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control input-glass" name="nama" placeholder="Nama" value="{{ old('nama', $data->nama) }}">
-                                        <label>Nama</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control input-glass" name="nama" placeholder="Nama" value="{{ old('nama', $data->nama) }}">
+                                            <label>Nama</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <select class="form-select input-glass" name="jenis_kelamin" value="{{ old('jenis_kelamin', $data->jenis_kelamin) }}">
-                                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-                                        </select>
-                                        <label>Jenis Kelamin</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select input-glass" name="jenis_kelamin" value="{{ old('jenis_kelamin', $data->jenis_kelamin) }}">
+                                                <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                            </select>
+                                            <label>Jenis Kelamin</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control input-glass" name="agama" placeholder="Agama" value="{{ old('agama', $data->agama) }}">
-                                        <label>Agama</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control input-glass" name="agama" placeholder="Agama" value="{{ old('agama', $data->agama) }}">
+                                            <label>Agama</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control input-glass" name="pekerjaan" placeholder="Pekerjaan" value="{{ old('pekerjaan', $data->pekerjaan) }}">
-                                        <label>Pekerjaan</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control input-glass" name="pekerjaan" placeholder="Pekerjaan" value="{{ old('pekerjaan', $data->pekerjaan) }}">
+                                            <label>Pekerjaan</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control input-glass" name="telp" placeholder="Telepon" value="{{ old('telp', $data->telp) }}">
-                                        <label>Telepon</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control input-glass" name="telp" placeholder="Telepon" value="{{ old('telp', $data->telp) }}">
+                                            <label>Telepon</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-12">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control input-glass" name="email" placeholder="Email" value="{{ old('email', $data->email) }}">
-                                        <label>Email</label>
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control input-glass" name="email" placeholder="Email" value="{{ old('email', $data->email) }}">
+                                            <label>Email</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12">
-                                    <button class="btn btn-gradient w-100 py-3 rounded-pill shadow-sm" type="submit">
-                                        <i class="fa fa-paper-plane me-2"></i> Submit
-                                    </button>
-                                </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-gradient w-100 py-3 rounded-pill shadow-sm" type="submit">
+                                            <i class="fa fa-paper-plane me-2"></i> Submit
+                                        </button>
+                                    </div>
 
-                            </div>
-                        </form>
+                                </div>
+                            </form>
+                </div>
             </div>
         </div>
-    </div>
+
 @endsection

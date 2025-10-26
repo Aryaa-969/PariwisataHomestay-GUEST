@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | MyApp</title>
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            background: linear-gradient(135deg, #ac83faff, #71aaffff);
+            background: linear-gradient(135deg, #A3A467, #d1d2abff);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -37,7 +37,7 @@
 <body>
 
 <div class="login-card">
-    <h3>🔐 Login</h3>
+    <h3>LOGIN</h3>
 
     @include('guest.layouts.guest.alerts')
 

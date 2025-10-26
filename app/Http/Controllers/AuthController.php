@@ -25,7 +25,6 @@ class AuthController extends Controller
             'email.email'       => 'Format email tidak valid!',
             'password.required' => 'Password wajib diisi!',
             'password.min'      => 'Password minimal 8 karakter!',
-            'password.regex'    => 'Password harus mengandung huruf kapital!',
         ]);
 
         // Cek user di database

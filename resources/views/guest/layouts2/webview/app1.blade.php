@@ -3,25 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tourist - Travel Agency HTML Template</title>
+    <title>Bina Desa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="Assets/img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
+    <!-- CSS -->
     @include('guest.layouts2.webview.css')
+
 </head>
 
 <body>
@@ -33,32 +22,26 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Topbar Start -->
     @include('guest.layouts2.webview.topbar')
     <!-- Topbar End -->
 
-
     <!-- Navbar & Hero Start -->
-
+    @include('guest.layouts2.webview.navbar')
     <!-- Navbar & Hero End -->
-
 
     @yield('content')
     <!-- Team End -->
-
 
     <!-- Footer Start -->
     @include('guest.layouts2.webview.footer')
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
     @include('guest.layouts2.webview.js')
-</body>
 
+</body>
 </html>
