@@ -22,7 +22,7 @@
                         <div class="dropdown-menu m-0">
                             <a href="destination.html" class="dropdown-item">Destination</a>
                             <a href="{{ route('booking.create') }}" class="dropdown-item">Booking</a>
-                            <a href="{{ route('booking.index') }}" class="dropdown-item">Your Booking</a>
+                            <a href="{{ route('booking.index') }}" class="dropdown-item">My Booking</a>
                             <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
                             <a href="team.html" class="dropdown-item">Travel Guides</a>
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
@@ -31,7 +31,26 @@
                     </div>
                     <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
+                {{-- Tombol kanan --}}
+                @if (session('user'))
+                    <div class="dropdown ms-3">
+                        <a href="#" class="btn btn-outline-primary rounded-pill dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-user me-1"></i> {{ session('user')->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('booking.index') }}"><i class="fa fa-calendar-check me-2"></i> My Bookings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item text-danger"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('users.create') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3">Register</a>
+                @endif
             </div>
         </nav>
 
@@ -39,7 +58,7 @@
             <div class="container py-5">
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white animated slideInDown">Booking</h1>
+                        <h1 class="display-3 text-white animated slideInDown">My Booking</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-center">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -53,7 +72,7 @@
         </div>
     </div>
 
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+   <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="booking p-5 rounded-4 shadow-lg"
                 style="background: #FFF;
@@ -74,57 +93,72 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control input-glass" id="name" name="kamar_id" value="{{ $booking -> kamar_id }}" required>
+                                <input type="text" class="form-control input-glass" id="name" name="kamar_id"
+                                    value="{{ old('kamar_id', $booking->kamar_id) }}" required>
                                 <label for="name">Kamar</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control input-glass" id="name" name="warga_id" value="{{ $booking -> warga_id }}" required>
+                                <input type="text" class="form-control input-glass" id="name" name="warga_id"
+                                    value="{{ old('warga_id', $booking->warga_id) }}" required>
                                 <label for="name">Warga</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control input-glass" name="checkin" value="{{ $booking -> checkin }}" required/>
+                                <input type="date" class="form-control input-glass" name="checkin"
+                                    value="{{ old('checkin', $booking->checkin) }}" required/>
                                 <label>Check In</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control input-glass" name="checkout" value="{{ $booking -> checkout }}" required/>
+                                <input type="date" class="form-control input-glass" name="checkout"
+                                    value="{{ old('checkout', $booking->checkout) }}" required/>
                                 <label>Check Out</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="number" class="form-control input-glass" step="0.01" name="total" value="{{ $booking -> total }}" required>
+                                <input type="number" class="form-control input-glass" step="0.01" name="total"
+                                    value="{{ old('total', $booking->total) }}" required>
                                 <label>Total</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control input-glass" name="status" value="pending" value="{{ $booking -> status }}"required>
+                                <input type="text" class="form-control input-glass" name="status"
+                                    value="{{ old('status', $booking->status ?? 'pending') }}" required>
                                 <label>Status</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control input-glass" name="metode_bayar" value="{{ $booking -> metode_bayar }}" required>
+                                <input type="text" class="form-control input-glass" name="metode_bayar"
+                                    value="{{ old('metode_bayar', $booking->metode_bayar) }}" required>
                                 <label>Metode Bayar</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="file" class="form-control input-glass" name="bukti_pembayaran" value="{{ $booking -> bukti_pembayaran }}" required>
+                                <input type="file" class="form-control input-glass" name="bukti_pembayaran">
                                 <label>Bukti Pembayaran</label>
+                                @if($booking->bukti_pembayaran)
+                                    <small class="text-muted mt-1 d-block">
+                                        File saat ini:
+                                        <a href="{{ asset('storage/'.$booking->bukti_pembayaran) }}" target="_blank">
+                                            Lihat Bukti
+                                        </a>
+                                    </small>
+                                @endif
                             </div>
                         </div>
 
@@ -137,6 +171,5 @@
                 </form>
             </div>
         </div>
-    </div>
-
+</div>
 @endsection

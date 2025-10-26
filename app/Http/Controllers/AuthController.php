@@ -1,8 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -16,41 +17,40 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validasi input
         $request->validate([
-            'email' => 'required|email',
-            'password' => [
-                'required',
-                'min:3',
-                'regex:/[A-Z]/', // wajib ada huruf kapital
-            ],
+            'email'    => 'required|email',
+            'password' => ['required', 'min:8', 'regex:/[A-Z]/'],
         ], [
-            'email.required' => 'Email wajib diisi!',
-            'email.email' => 'Format email tidak valid!',
+            'email.required'    => 'Email wajib diisi!',
+            'email.email'       => 'Format email tidak valid!',
             'password.required' => 'Password wajib diisi!',
-            'password.min' => 'Password minimal 3 karakter!',
-            'password.regex' => 'Password harus mengandung huruf kapital!',
+            'password.min'      => 'Password minimal 8 karakter!',
+            'password.regex'    => 'Password harus mengandung huruf kapital!',
         ]);
 
-        // 🔹 Contoh data user (disimulasikan)
-        $users = [
-            [
-                'email' =>'arya@gmail.com',
-                'password' => 'UserABC', // password benar
-                'name' => 'Arya',
-            ],
-        ];
+        // Cek user di database
+        $user = User::where('email', $request->email)->first();
 
-        // Cek apakah email dan password cocok
-        $found = collect($users)->first(function ($user) use ($request) {
-            return $user['email'] === $request->email && $user['password'] === $request->password;
-        });
-
-        if ($found) {
-            return redirect()->route('index')->with('success', 'Login berhasil! Selamat datang, ' . $found['name']);
-        } else {
-            return redirect()->back()->with('error', 'Email atau password salah!')->withInput();
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Simpan sesi login
+            session(['user' => $user]);
+            return redirect()->route('index')->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
         }
+
+        return back()->with('error', 'Email atau password salah!')->withInput();
+    }
+
+    public function logout(Request $request)
+    {
+        // Hapus session user
+        $request->session()->forget('user');
+
+        // Regenerasi token agar sesi aman
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Kembali ke halaman login
+        return redirect()->route('login')->with('success', 'Anda berhasil logout.');
     }
 
     /**

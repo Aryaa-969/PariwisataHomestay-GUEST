@@ -3,14 +3,17 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingHomestayController;
 use App\Http\Controllers\PariwisataController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('booking', BookingHomestayController::class);
 Route::resource('warga', WargaController::class);
+Route::resource('users', UserController::class);
 
-Route::get('/login', [AuthController::class, 'index'])->name('login.form');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Halaman setelah login sukses
 Route::get('/home', function () {
@@ -52,6 +55,14 @@ Route::get('/tambah-warga', function () {
 ROute::get('/tambah-warga', function () {
     return view('guest.tambahWarga');
 })->name('tambahWarga');
+
+Route::get('/form-login', function () {
+    return view('login-form');
+})->name('form-login');
+
+//Route::get('/user', function () {
+//return view('guest.user.index');
+//});
 
 // Booking Homestay Routes
 //Route::get('/booking', [BookingHomestayController::class, 'index'])->name('booking.index');

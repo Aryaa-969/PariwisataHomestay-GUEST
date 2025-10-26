@@ -6,17 +6,19 @@
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
             <a href="" class="navbar-brand p-0">
                 <h3 class="text-primary m-0">Pariwisata & Homestay</h3>
-                <!-- <img src="img/logo.png" alt="Logo"> -->
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <a href="{{ route('index') }}" class="nav-item nav-link active">Home</a>
                     <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
                     <a href="{{ route('service') }}" class="nav-item nav-link">Services</a>
                     <a href="{{ route('package') }}" class="nav-item nav-link">Packages</a>
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
@@ -29,9 +31,30 @@
                             <a href="{{ route('404') }}" class="dropdown-item">404 Page</a>
                         </div>
                     </div>
+
                     <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
+
+                {{-- Tombol kanan --}}
+                @if (session('user'))
+                    <div class="dropdown ms-3">
+                        <a href="#" class="btn btn-outline-primary rounded-pill dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-user me-1"></i> {{ session('user')->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('booking.index') }}"><i class="fa fa-calendar-check me-2"></i> My Bookings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item text-danger"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <a href="{{ route('users.create') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3">Register</a>
+                @endif
             </div>
         </nav>
 
@@ -40,18 +63,24 @@
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
                         <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
-                        <p class="fs-4 text-white mb-4 animated slideInDown">Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit</p>
+                        <p class="fs-4 text-white mb-4 animated slideInDown">
+                            Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit
+                        </p>
                         <div class="position-relative w-75 mx-auto animated slideInDown">
-                            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
-                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5"
+                                type="text" placeholder="Eg: Thailand">
+                            <button type="button"
+                                class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
+                                style="margin-top: 7px;">Search</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Navbar & Hero End -->
 
+
+    <!-- Navbar & Hero End -->
 
     <!-- About Start -->
     <div class="container-xxl py-5">

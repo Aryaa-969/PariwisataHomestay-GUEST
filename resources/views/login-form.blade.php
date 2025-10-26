@@ -39,6 +39,8 @@
 <div class="login-card">
     <h3>🔐 Login</h3>
 
+    @include('guest.layouts.guest.alerts')
+
     @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
@@ -68,7 +70,9 @@
 
         <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
-
+        <p class="text-center mt-3 small">
+            Belum punya akun? <a href="{{ route('users.create') }}">Register</a>
+        </p>
     <p class="text-center mt-3 text-muted small">
         © {{ date('Y') }} ArthurSkie - All rights reserved.
     </p>
