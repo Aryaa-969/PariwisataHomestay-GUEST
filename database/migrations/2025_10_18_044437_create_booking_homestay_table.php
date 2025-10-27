@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('booking_homestay', function (Blueprint $table) {
             $table->increments('booking_id');
             $table->foreignId('kamar_id');
-            $table->foreignId('warga_id')->constrained('warga')->onDelete('cascade');
+            $table->foreignId('warga_id');
             $table->date('checkin');
             $table->date('checkout');
             $table->decimal('total', 10, 2);
