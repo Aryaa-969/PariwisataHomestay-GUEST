@@ -50,7 +50,7 @@
                         </a>
 
                         <a href="{{ route('users.index') }}"
-                            class="dropdown-item {{ request()->routeIs('warga.*') ? 'active' : '' }}">
+                            class="dropdown-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
                             User
                         </a>
 
