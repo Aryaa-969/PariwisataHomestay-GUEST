@@ -1,4 +1,4 @@
-@extends('guest.layouts2.webview.app1')
+@extends('guest.layouts.guest.app')
 
 @section('content')
 

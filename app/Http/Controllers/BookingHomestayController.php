@@ -12,12 +12,12 @@ class BookingHomestayController extends Controller
     public function index()
     {
         $bookings = BookingHomestay::all();
-        return view('guest.booking.index', compact('bookings'));
+        return view('guest.pages.booking.index', compact('bookings'));
     }
 
     public function create()
     {
-        return view('guest.booking.create');
+        return view('guest.pages.booking.create');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class BookingHomestayController extends Controller
 
     public function edit(BookingHomestay $booking)
     {
-        return view('guest.booking.edit', compact('booking'));
+        return view('guest.pages.booking.edit', compact('booking'));
     }
 
     public function update(Request $request, BookingHomestay $booking)

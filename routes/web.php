@@ -16,48 +16,32 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Halaman setelah login sukses
-Route::get('/home', function () {
-    return view('guest.index');
+Route::get('/', function () {
+    return view('guest.pages.webview.index');
 })->name('index');
 
 Route::get('/contact', function () {
-    return view('guest.contact');
+    return view('guest.pages.webview.contact');
 })->name('contact');
 
 Route::get('/about', function () {
-    return view('guest.about');
+    return view('guest.pages.webview.about');
 })->name('about');
 
 Route::get('/service', function () {
-    return view('guest.service');
+    return view('guest.pages.webview.service');
 })->name('service');
 
 Route::get('/package', function () {
-    return view('guest.package');
+    return view('guest.pages.webview.package');
 })->name('package');
 
 Route::get('/404', function () {
-    return view('guest.404');
+    return view('guest.pages.webview.404');
 })->name('404');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//Route::get('/booking', function () {
-//return view('guest.booking.create');
-//})->name('booking.create');
-
-Route::get('/tambah-warga', function () {
-    return view('guest.tambahWarga');
-})->name('tambah');
-
-ROute::get('/tambah-warga', function () {
-    return view('guest.tambahWarga');
-})->name('tambahWarga');
-
-Route::get('/form-login', function () {
-    return view('login-form');
+Route::get('/loginn', function () {
+    return view('guest.pages.auth.login-form');
 })->name('form-login');
 
 //Route::get('/user', function () {
@@ -78,4 +62,3 @@ Route::get('/form-login', function () {
 //Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.update');
 //Route::get('/warga/{data}/edit', [WargaController::class, 'edit'])->name('warga.edit');
 
-Route::get('/pariwisata', [PariwisataController::class, 'index']);
